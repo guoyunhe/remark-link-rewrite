@@ -1,14 +1,15 @@
 import { remark } from 'remark';
-import { promisify } from 'util';
-import linkRewrite, { replaceAsync, rewriteJSXURL } from '../src';
+import { describe, expect, it } from 'vitest';
+import linkRewrite, { replaceAsync, rewriteJSXURL } from '../src/index.ts';
 
-const sleep = promisify(setTimeout);
-const random = (min, max) => Math.floor(min + Math.random() * (max - min + 1));
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const random = (min, max) =>
+  Math.floor(min + Math.random() * (max - min + 1));
 
-async function run(input, options) {
-  const processor = remark().use(linkRewrite, options);
+async function run(input, ...args) {
+  const processor = remark().use(linkRewrite, args[0]);
   const { value } = await processor.process(input);
-  return value;
+  return String(value);
 }
 
 describe('remark-link-rewrite', () => {
