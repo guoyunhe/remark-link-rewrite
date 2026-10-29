@@ -3,7 +3,6 @@
   "compilerOptions": {
     "declaration": false,
     "allowImportingTsExtensions": true,
-    "noImplicitAny": false,
     "noEmit": true,
     "rootDir": "."
   },
